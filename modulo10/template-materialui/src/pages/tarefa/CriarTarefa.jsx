@@ -18,6 +18,7 @@ const CriarTarefa = ({handleClose, tarefas, setTarefas}) =>{
   const [fimTarefa, setFimTarefa] = useState('');
   const [recursoTarefa, setRecursoTarefa] = useState('');
   const [statusTarefa, setStatusTarefa] = useState('');
+  const [prioridade, setPrioridade] = useState('')
   
   useEffect(() => {
     //Abaixo uma variável é declarada para armazenar o id da tarefa, somando 1 ao maior id existente atualmente no state Tarefas
@@ -33,6 +34,10 @@ const CriarTarefa = ({handleClose, tarefas, setTarefas}) =>{
     setStatusTarefa(event.target.value);
   };
 
+  const handlePrioridade = (event) => {
+    setPrioridade(event.target.value)
+  }
+
   const handleSalvar = () => {
     //Para inspecionarmos nosso código, uma boa estratégia é utilizarmos o console.log.
     //  Com o console.log, podemos visualizar o seu conteúdo na aba Console, no inspecionador de elementos, na janela do navegador
@@ -47,7 +52,8 @@ const CriarTarefa = ({handleClose, tarefas, setTarefas}) =>{
           inicioTarefa,
           fimTarefa,
           recursoTarefa,
-          statusTarefa
+          statusTarefa,
+          prioridade
         }
       ]);
     //console.log(`Tarefas: ` + JSON.stringify(tarefas));
@@ -142,6 +148,27 @@ const CriarTarefa = ({handleClose, tarefas, setTarefas}) =>{
                 </Select>
               </FormControl>
             </Grid>
+            <Grid item xs={3}>
+              <FormControl fullWidth>
+                <InputLabel htmlFor="tarefa_prioridade">Prioridade</InputLabel>
+                <Select
+                  id="tarefa_prioridade"
+                  value={prioridade}
+                  label="prioridade"
+                  onChange={handlePrioridade}
+                  size="small"
+                  sx={{
+                    color:'rgba(0, 0, 0, 0.6)',
+                    fontWeight: 400,
+                  }} 
+                >
+                  <MenuItem value={'Alta'}>Alta</MenuItem>
+                  <MenuItem value={'Media'}>Media</MenuItem>
+                  <MenuItem value={'Baixa'}>Baixa</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid> 
+          </Grid>
             <Grid container spacing={2} pl={2} mt={2}>
               <Grid item xs={1}>
                 <Button size="small" variant="contained" onClick={handleSalvar}>Salvar</Button>
@@ -149,8 +176,7 @@ const CriarTarefa = ({handleClose, tarefas, setTarefas}) =>{
               <Grid item xs={1}>  
                 <Button size="small" variant="outlined" onClick={handleClose}>Cancelar</Button>  
               </Grid>
-            </Grid>  
-          </Grid>
+            </Grid>
         </CardContent>
       </Card>
     </Grid>
